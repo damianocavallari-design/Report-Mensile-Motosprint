@@ -3,164 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report - Gennaio</title>
-  <link rel="stylesheet" href="style.css">
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report Mensile - Redazione</title>
+  <title>Report Mensile Motosprint</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
+      margin: 20px;
     }
-
-    header {
-      background-color: #f80000;
-      color: white;
+    h1 {
       text-align: center;
-      padding: 20px 0;
+      color: #004080;
     }
-
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      border-bottom: 2px solid #004080;
-      padding-bottom: 10px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #004080;
       padding: 10px;
       text-align: center;
     }
-
     th {
-      background-color: #e8f0fe;
+      background-color: #004080;
+      color: white;
     }
-
     input[type="number"] {
       width: 80px;
       padding: 5px;
-      text-align: center;
     }
-
-    .month-selector {
-      margin-bottom: 20px;
-      text-align: right;
-    }
-
     select {
       padding: 5px;
-      font-size: 14px;
     }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #777;
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0066cc;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Report Mensile dei Motosprint
-  </header>
+  <h1>Report Mensile Motosprint</h1>
 
-  <div class="container">
-    <div class="month-selector">
-      <label for="mese">Seleziona il mese: </label>
-      <select id="mese" onchange="cambiaMese()">
-        <option value="gennaio">Gennaio</option>
-        <option value="febbraio">Febbraio</option>
-        <option value="marzo">Marzo</option>
-        <option value="aprile">Aprile</option>
-        <option value="maggio">Maggio</option>
-        <option value="giugno">Giugno</option>
-        <option value="luglio">Luglio</option>
-        <option value="agosto">Agosto</option>
-        <option value="settembre">Settembre</option>
-        <option value="ottobre" selected>Ottobre</option>
-        <option value="novembre">Novembre</option>
-        <option value="dicembre">Dicembre</option>
-      </select>
-    </div>
+  <label for="mese">Seleziona mese:</label>
+  <select id="mese">
+    <option>Gennaio</option>
+    <option>Febbraio</option>
+    <option>Marzo</option>
+    <option>Aprile</option>
+    <option>Maggio</option>
+    <option>Giugno</option>
+    <option>Luglio</option>
+    <option>Agosto</option>
+    <option>Settembre</option>
+    <option>Ottobre</option>
+    <option>Novembre</option>
+    <option>Dicembre</option>
+  </select>
 
-    <h2 id="titoloMese">Report - Ottobre</h2>
+  <table>
+    <tr>
+      <th>Autore</th>
+      <th>Articoli</th>
+      <th>Visualizzazioni</th>
+    </tr>
+    <tr><td>Alessandro Di Moro</td><td><input type="number" id="articoli1"></td><td><input type="number" id="visualizzazioni1"></td></tr>
+    <tr><td>Gianmaria Rosati</td><td><input type="number" id="articoli2"></td><td><input type="number" id="visualizzazioni2"></td></tr>
+    <tr><td>Marco Pezzoni</td><td><input type="number" id="articoli3"></td><td><input type="number" id="visualizzazioni3"></td></tr>
+    <tr><td>Francesco Allevato</td><td><input type="number" id="articoli4"></td><td><input type="number" id="visualizzazioni4"></td></tr>
+    <tr><td>Mirco Colombi</td><td><input type="number" id="articoli5"></td><td><input type="number" id="visualizzazioni5"></td></tr>
+    <tr><td>Serena Zunino</td><td><input type="number" id="articoli6"></td><td><input type="number" id="visualizzazioni6"></td></tr>
+    <tr><td>Mathias Cantarini</td><td><input type="number" id="articoli7"></td><td><input type="number" id="visualizzazioni7"></td></tr>
+  </table>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Autore</th>
-          <th>Numero Articoli</th>
-          <th>Visualizzazioni Totali</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Alessandro Di Moro</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Gianmaria Rosati</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Marco Pezzoni</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Francesco Allevato</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Mirco Colombi</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Serena Zunino</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-        <tr><td>Mathias Cantarini</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
-      </tbody>
-    </table>
-  </div>
-<button type="button" onclick="inviaDati()">Salva dati</button>
-
-  <footer>
-    © 2025 Motosprint- Report mensile autori
-  </footer>
+  <button type="button" onclick="inviaDati()">Salva dati</button>
 
   <script>
-    function cambiaMese() {
-      const mese = document.getElementById("mese").value;
-      document.getElementById("titoloMese").textContent = "Report - " + mese.charAt(0).toUpperCase() + mese.slice(1);
+    function inviaDati() {
+      const mese = document.querySelector("#mese").value;
+
+      const autori = [
+        "Alessandro Di Moro",
+        "Gianmaria Rosati",
+        "Marco Pezzoni",
+        "Francesco Allevato",
+        "Mirco Colombi",
+        "Serena Zunino",
+        "Mathias Cantarini"
+      ];
+
+      let dati = [];
+
+      for (let i = 0; i < autori.length; i++) {
+        dati.push({
+          autore: autori[i],
+          articoli: document.querySelector(`#articoli${i+1}`).value,
+          visualizzazioni: document.querySelector(`#visualizzazioni${i+1}`).value,
+          mese: mese
+        });
+      }
+
+      // Invia ogni autore separatamente al Google Sheet
+      dati.forEach(d => {
+        fetch("https://script.google.com/macros/s/AKfycbw4Doj0CJ1FNhZS5W6UMKNLLUJDaUwjAADE2A3qFjyCwoTYPM2UEVt30D1TNITTFt2r/exec", {
+          method: "POST",
+          body: JSON.stringify(d),
+          headers: {"Content-Type": "application/json"}
+        })
+        .then(response => response.json())
+        .then(res => console.log(res))
+        .catch(err => console.error(err));
+      });
+
+      alert("Dati inviati al Google Sheet!");
     }
   </script>
-<script>
-function inviaDati() {
-  const autore = document.querySelector("#autore").value;
-  const articoli = document.querySelector("#articoli").value;
-  const visualizzazioni = document.querySelector("#visualizzazioni").value;
-  const mese = document.querySelector("#mese").value;
-
-  fetch("https://script.google.com/macros/s/AKfycbw4Doj0CJ1FNhZS5W6UMKNLLUJDaUwjAADE2A3qFjyCwoTYPM2UEVt30D1TNITTFt2r/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      autore: autore,
-      articoli: articoli,
-      visualizzazioni: visualizzazioni,
-      mese: mese
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(response => response.json())
-  .then(data => alert("Dati salvati!"))
-  .catch(error => alert("Errore: " + error));
-}
-</script>
 </body>
 </html>
