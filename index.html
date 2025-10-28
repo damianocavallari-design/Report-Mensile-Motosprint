@@ -3,50 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report Mensile Motosprint</title>
+  <title>Report Mensile Motosprint - Gennaio</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #004080;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      border: 1px solid #004080;
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #004080;
-      color: white;
-    }
-    input[type="number"] {
-      width: 80px;
-      padding: 5px;
-    }
-    select {
-      padding: 5px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #004080;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #0066cc;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { text-align: center; color: #004080; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #004080; padding: 10px; text-align: center; }
+    th { background-color: #004080; color: white; }
+    input[type="number"] { width: 80px; padding: 5px; }
+    select { padding: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; background-color: #004080; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+    button:hover { background-color: #0066cc; }
   </style>
 </head>
 <body>
@@ -83,47 +50,72 @@
     <tr><td>Mathias Cantarini</td><td><input type="number" id="articoli7"></td><td><input type="number" id="visualizzazioni7"></td></tr>
   </table>
 
-  <button type="button" onclick="inviaDati()">Salva dati</button>
+  <button type="button" id="salva">Salva dati</button>
 
   <script>
-    function inviaDati() {
+    const URL_WEB_APP = "https://script.google.com/macros/s/AKfycbw4Doj0CJ1FNhZS5W6UMKNLLUJDaUwjAADE2A3qFjyCwoTYPM2UEVt30D1TNITTFt2r/exec"; // <--- sostituisci con il tuo URL
+    const mesePredefinito = "Gennaio";
+    const autori = [
+      "Alessandro Di Moro",
+      "Gianmaria Rosati",
+      "Marco Pezzoni",
+      "Francesco Allevato",
+      "Mirco Colombi",
+      "Serena Zunino",
+      "Mathias Cantarini"
+    ];
+
+    document.querySelector("#mese").value = mesePredefinito;
+
+    // Cambio pagina mese
+    document.querySelector("#mese").addEventListener("change", function() {
+      const mese = this.value.toLowerCase();
+      window.location.href = mese + ".html";
+    });
+
+    // Carica dati dal foglio
+    async function caricaDati() {
+      try {
+        const res = await fetch(URL_WEB_APP);
+        const data = await res.json();
+        data.forEach(riga => {
+          if (riga[0] === mesePredefinito) {
+            const index = autori.indexOf(riga[1]);
+            if (index !== -1) {
+              document.querySelector(`#articoli${index+1}`).value = riga[2];
+              document.querySelector(`#visualizzazioni${index+1}`).value = riga[3];
+            }
+          }
+        });
+      } catch(e) {
+        console.error("Errore nel caricamento dati:", e);
+      }
+    }
+
+    caricaDati();
+
+    // Salva dati sul foglio
+    document.querySelector("#salva").addEventListener("click", async () => {
       const mese = document.querySelector("#mese").value;
-
-      const autori = [
-        "Alessandro Di Moro",
-        "Gianmaria Rosati",
-        "Marco Pezzoni",
-        "Francesco Allevato",
-        "Mirco Colombi",
-        "Serena Zunino",
-        "Mathias Cantarini"
-      ];
-
-      let dati = [];
-
-      for (let i = 0; i < autori.length; i++) {
-        dati.push({
+      for(let i=0; i<autori.length; i++) {
+        const obj = {
+          mese: mese,
           autore: autori[i],
           articoli: document.querySelector(`#articoli${i+1}`).value,
-          visualizzazioni: document.querySelector(`#visualizzazioni${i+1}`).value,
-          mese: mese
-        });
+          visualizzazioni: document.querySelector(`#visualizzazioni${i+1}`).value
+        };
+        try {
+          await fetch(URL_WEB_APP, {
+            method: "POST",
+            body: JSON.stringify(obj),
+            headers: {"Content-Type":"application/json"}
+          });
+        } catch(e) {
+          console.error("Errore nel salvataggio dati:", e);
+        }
       }
-
-      // Invia ogni autore separatamente al Google Sheet
-      dati.forEach(d => {
-        fetch("https://script.google.com/macros/s/AKfycbw4Doj0CJ1FNhZS5W6UMKNLLUJDaUwjAADE2A3qFjyCwoTYPM2UEVt30D1TNITTFt2r/exec", {
-          method: "POST",
-          body: JSON.stringify(d),
-          headers: {"Content-Type": "application/json"}
-        })
-        .then(response => response.json())
-        .then(res => console.log(res))
-        .catch(err => console.error(err));
-      });
-
-      alert("Dati inviati al Google Sheet!");
-    }
+      alert("Dati salvati su Google Sheets!");
+    });
   </script>
 </body>
 </html>
