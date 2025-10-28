@@ -126,6 +126,7 @@
       </tbody>
     </table>
   </div>
+<button type="button" onclick="inviaDati()">Salva dati</button>
 
   <footer>
     © 2025 Motosprint- Report mensile autori
@@ -137,6 +138,29 @@
       document.getElementById("titoloMese").textContent = "Report - " + mese.charAt(0).toUpperCase() + mese.slice(1);
     }
   </script>
+<script>
+function inviaDati() {
+  const autore = document.querySelector("#autore").value;
+  const articoli = document.querySelector("#articoli").value;
+  const visualizzazioni = document.querySelector("#visualizzazioni").value;
+  const mese = document.querySelector("#mese").value;
+
+  fetch("https://script.google.com/macros/s/AKfycbw4Doj0CJ1FNhZS5W6UMKNLLUJDaUwjAADE2A3qFjyCwoTYPM2UEVt30D1TNITTFt2r/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      autore: autore,
+      articoli: articoli,
+      visualizzazioni: visualizzazioni,
+      mese: mese
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(data => alert("Dati salvati!"))
+  .catch(error => alert("Errore: " + error));
+}
+</script>
 </body>
 </html>
-
