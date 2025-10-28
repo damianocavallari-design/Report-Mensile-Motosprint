@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report - Gennaio</title>
+  <link rel="stylesheet" href="style.css">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Mensile - Redazione</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #f80000;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      border-bottom: 2px solid #004080;
+      padding-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e8f0fe;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 5px;
+      text-align: center;
+    }
+
+    .month-selector {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+
+    select {
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Report Mensile dei Motosprint
+  </header>
+
+  <div class="container">
+    <div class="month-selector">
+      <label for="mese">Seleziona il mese: </label>
+      <select id="mese" onchange="cambiaMese()">
+        <option value="gennaio">Gennaio</option>
+        <option value="febbraio">Febbraio</option>
+        <option value="marzo">Marzo</option>
+        <option value="aprile">Aprile</option>
+        <option value="maggio">Maggio</option>
+        <option value="giugno">Giugno</option>
+        <option value="luglio">Luglio</option>
+        <option value="agosto">Agosto</option>
+        <option value="settembre">Settembre</option>
+        <option value="ottobre" selected>Ottobre</option>
+        <option value="novembre">Novembre</option>
+        <option value="dicembre">Dicembre</option>
+      </select>
+    </div>
+
+    <h2 id="titoloMese">Report - Ottobre</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Autore</th>
+          <th>Numero Articoli</th>
+          <th>Visualizzazioni Totali</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Alessandro Di Moro</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Gianmaria Rosati</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Marco Pezzoni</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Francesco Allevato</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Mirco Colombi</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Serena Zunino</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+        <tr><td>Mathias Cantarini</td><td><input type="number" min="0"></td><td><input type="number" min="0"></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    © 2025 Motosprint- Report mensile autori
+  </footer>
+
+  <script>
+    function cambiaMese() {
+      const mese = document.getElementById("mese").value;
+      document.getElementById("titoloMese").textContent = "Report - " + mese.charAt(0).toUpperCase() + mese.slice(1);
+    }
+  </script>
+</body>
+</html>
