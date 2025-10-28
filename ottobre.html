@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Mensile Motosprint - Ottobre</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { text-align: center; color: #004080; }
+    label { font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #004080; padding: 10px; text-align: center; }
+    th { background-color: #004080; color: white; }
+    input[type="number"] { width: 80px; padding: 5px; }
+    select { padding: 5px; }
+    button { margin-top: 20px; padding: 10px 20px; background-color: #004080; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+    button:hover { background-color: #0066cc; }
+  </style>
+</head>
+<body>
+  <h1>Report Mensile Motosprint</h1>
+
+  <label for="mese">Seleziona mese:</label>
+  <select id="mese">
+    <option>Gennaio</option>
+    <option>Febbraio</option>
+    <option>Marzo</option>
+    <option>Aprile</option>
+    <option>Maggio</option>
+    <option>Giugno</option>
+    <option>Luglio</option>
+    <option>Agosto</option>
+    <option>Settembre</option>
+    <option>Ottobre</option>
+    <option>Novembre</option>
+    <option>Dicembre</option>
+  </select>
+
+  <table>
+    <tr>
+      <th>Autore</th>
+      <th>Articoli</th>
+      <th>Visualizzazioni</th>
+    </tr>
+    <tr><td>Alessandro Di Moro</td><td><input type="number" id="articoli1"></td><td><input type="number" id="visualizzazioni1"></td></tr>
+    <tr><td>Gianmaria Rosati</td><td><input type="number" id="articoli2"></td><td><input type="number" id="visualizzazioni2"></td></tr>
+    <tr><td>Marco Pezzoni</td><td><input type="number" id="articoli3"></td><td><input type="number" id="visualizzazioni3"></td></tr>
+    <tr><td>Francesco Allevato</td><td><input type="number" id="articoli4"></td><td><input type="number" id="visualizzazioni4"></td></tr>
+    <tr><td>Mirco Colombi</td><td><input type="number" id="articoli5"></td><td><input type="number" id="visualizzazioni5"></td></tr>
+    <tr><td>Serena Zunino</td><td><input type="number" id="articoli6"></td><td><input type="number" id="visualizzazioni6"></td></tr>
+    <tr><td>Mathias Cantarini</td><td><input type="number" id="articoli7"></td><td><input type="number" id="visualizzazioni7"></td></tr>
+  </table>
+
+  <button type="button" onclick="inviaDati()">Salva dati</button>
+
+  <script>
+    const mesePredefinito = "ottobre";
+    document.querySelector("#mese").value = mesePredefinito;
+
+    document.querySelector("#mese").addEventListener("change", function() {
+      const mese = this.value.toLowerCase();
+      window.location.href = mese + ".html";
+    });
+
+    function inviaDati() {
+      const mese = document.querySelector("#mese").value;
+      const autori = [
+        "Alessandro Di Moro",
+        "Gianmaria Rosati",
+        "Marco Pezzoni",
+        "Francesco Allevato",
+        "Mirco Colombi",
+        "Serena Zunino",
+        "Mathias Cantarini"
+      ];
+
+      autori.forEach((autore, i) => {
+        fetch("URL_DEL_TUO_SCRIPT", {
+          method: "POST",
+          body: JSON.stringify({
+            autore: autore,
+            articoli: document.querySelector(`#articoli${i+1}`).value,
+            visualizzazioni: document.querySelector(`#visualizzazioni${i+1}`).value,
+            mese: mese
+          }),
+          headers: {"Content-Type": "application/json"}
+        }).then(res => res.json())
+          .then(r => console.log(r))
+          .catch(err => console.error(err));
+      });
+      alert("Dati inviati al Google Sheet!");
+    }
+  </script>
+</body>
+</html>
